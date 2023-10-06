@@ -1,0 +1,7 @@
+{
+  "name": "FinderApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,8 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "FinderApp",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https"
+	}
+}
