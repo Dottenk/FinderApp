@@ -1,0 +1,7 @@
+{
+  "eslint.workingDirectories": [
+    "./app/pages/home",
+    "./app/pages/login",
+    "./app/pages/register",
+  ]
+}

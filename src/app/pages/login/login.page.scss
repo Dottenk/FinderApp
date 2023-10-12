@@ -1,0 +1,110 @@
+.back {
+  background: linear-gradient(65deg, #203d02, #206e06, #7d830b);
+  background-size: 600% 600%;
+  animation: gradiente 10s ease infinite;
+}
+
+.back-logo{
+  background-image: url("../../..//assets/icon/main/logo.png");
+  background-repeat: no-repeat;
+  background-size: 300px 100px;
+  background-position: 50% 7%;
+  z-index: 1000;
+  mix-blend-mode: multiply;
+  animation: zoomIn 2s ease 0s 1 normal forwards;
+}
+
+.main{
+  box-shadow: 5px 8px 53px -14px rgba(0,0,0,0.68);
+}
+
+.login-card{
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 66px 66px 66px 66px;
+}
+
+p{
+  margin: 15px 0 0 0;
+  font-size: medium;
+}
+
+span{
+  font-size: small;
+  margin: 0;
+  padding: 0;
+}
+
+
+ion-card-title{
+  margin: 2%;
+  --ion-font-size: 14px;
+}
+
+ion-button{
+  --color: #ffffff;
+  --background: #2F6F26;
+  --ripple-color: #31ff16;
+  --transition: 2;
+  padding: 5% 0;
+  text-align: center;
+}
+
+ion-item{
+  width: 100%;
+}
+
+ion-item.no-border{
+  --border-width: 0;
+}
+
+app-custom-input{
+  width: 100%;
+}
+
+
+
+.login-card-form{
+  padding: 25% 0 0 5%;
+}
+
+.login-card-btn{
+  width: 100%;
+}
+
+.register-card-btn{
+  width: 60%;
+  margin: 0 20%;
+}
+
+
+
+.ion-margin-vertical{
+  padding: 0 20%;
+}
+
+ion-item-divider{
+  margin-top: 0px;
+  min-height: 2px !important;
+}
+
+
+
+
+@keyframes gradiente {
+  0%{background-position:0% 22%}
+  50%{background-position:100% 79%}
+  100%{background-position:0% 22%}
+}
+
+@keyframes zoomIn {
+	0% {
+		transform: scale(0.9);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}

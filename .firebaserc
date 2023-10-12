@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "finderapp-8272e": {
+      "hosting": {
+        "app": [
+          "finderapp-8272e"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "finderapp-8272e"
+  }
+}
