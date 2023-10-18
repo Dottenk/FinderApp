@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
 
   onSubmit(){
     if(this.form.valid){
-      this.utilsSvc.presentLoading({message: 'Autenticando...', mode: 'ios'});
+      this.utilsSvc.presentLoading({message: 'Autenticando...', mode: 'ios',duration: 2000});
       this.firebaseSvc.login(this.form.value as User).then(async res => {
         console.log(res);
         let user: User = {

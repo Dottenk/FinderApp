@@ -15,7 +15,8 @@ import { CustomInputComponent } from './custom-input/custom-input.component';
   imports: [
     CommonModule,
     IonicModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

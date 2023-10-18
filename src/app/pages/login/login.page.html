@@ -5,11 +5,11 @@
         <ion-card-title></ion-card-title>
       </ion-card-header>
       <ion-card-content class="login-card-form">
-          <form (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()" class="ion-margin-vertical form-group" [formGroup]="form">
+          <form (ngSubmit)="onSubmit()" class="ion-margin-vertical form-group" [formGroup]="form">
             <ion-item class="no-border">
                 <app-custom-input type="email" aria-label="email" autocomplete="email" label="Correo" [control]="form.controls.email" required></app-custom-input>
             </ion-item>
-            <ng-container class="validators" ="form.controls.email.errors && form.controls.email.dirty">
+            <ng-container class="validators" *ngIf="form.controls.email.errors && form.controls.email.dirty">
               <span *ngIf="form.controls.email.errors?.['required']">Ingresa tu correo</span>
               <span *ngIf="form.controls.email.errors?.['email']">Ingresa un correo valido</span>
             </ng-container>
@@ -28,7 +28,7 @@
         <ion-item-divider></ion-item-divider>
         <p>¿No tienes una cuenta?</p>
         <ion-item class="register-card-btn" lines="none">
-          <ion-button expand="block" type="submit" size="large" shape="round" class="login-card-btn">
+          <ion-button expand="block" type="submit" size="large" shape="round" class="login-card-btn" routerLink="register">
             <ion-icon name="person-add-outline" slot="end"></ion-icon>Registrate</ion-button>
         </ion-item>
       </ion-card-content>

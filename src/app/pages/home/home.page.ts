@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,20 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(
+    private utilsSvc: UtilsService,
+    private firebaseSvc: FirebaseService
+  )
+  {}
+
+  signOut(){
+    this.firebaseSvc.signOut();
+    this.utilsSvc.presentLoading({message: 'Cerrando sesion...', mode: 'ios', duration: 1000});
+    this.utilsSvc.removeElementInLocalStorage('user');
+    this.utilsSvc.routerLink('loader');
+    this.utilsSvc.dismissLoading();
+  }
+
+
 
 }
