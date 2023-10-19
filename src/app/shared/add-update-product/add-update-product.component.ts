@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { IonModal } from '@ionic/angular';
-import { User } from 'firebase/auth';
 import { Producto } from 'src/app/models/product.models';
+import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -26,6 +26,7 @@ export class AddUpdateProductComponent  implements OnInit {
   formProduct = new FormGroup({
     id: new FormControl(''),
     titulo: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    image: new FormControl('', [Validators.required]),
     comentarios: new FormControl([], [Validators.required, Validators.minLength(1)])
   })
 
@@ -109,6 +110,11 @@ export class AddUpdateProductComponent  implements OnInit {
         this.createProduct();
       }
     }
+  }
+
+  async takeImage(){
+    const dataUrl = (await this.utilsSvc.takePicture()).dataUrl;
+    this.formProduct.controls.image.setValue(dataUrl);
   }
 
 }

@@ -3,6 +3,7 @@ export interface Producto{
   titulo: string,
   url?: string,
   estado?: string,
+  image: string,
   comentarios: Comentario[]
 }
 

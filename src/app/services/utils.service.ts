@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AlertController, AlertOptions, LoadingController, LoadingOptions, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
 import { async } from 'rxjs';
 
@@ -17,6 +18,17 @@ export class UtilsService {
   ) { }
 
 
+
+  async takePicture () {
+    return await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt,
+      promptLabelPhoto: 'Elije una foto de tu Galeria',
+      promptLabelPicture: 'Toma una foto'
+    });
+  }
 
   // Loading
   async presentLoading(opts?: LoadingOptions) {

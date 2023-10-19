@@ -21,6 +21,9 @@
             <div class="validators" *ngIf="formProduct.controls.comentarios.errors && formProduct.controls.comentarios.diry">
               <div *ngIf="formProduct.controls.comentarios.errors?.['required']">Este campo debe ser requerido</div>
             </div>
+            <ion-button fill="clear" shape="round" size="full" (click)="takeImage()">
+              <ion-icon name="camera-outline"></ion-icon> Agregar fotografia
+            </ion-button>
         </ion-content>
       </ng-template>
     </ion-modal>
