@@ -1,0 +1,28 @@
+<ion-content>
+  <ion-content class="ion-padding">
+    <ion-button expand="block" (click)="setOpen(true)">Agregar producto perdido</ion-button>
+    <ion-modal [isOpen]="isModalOpen" mode="ios">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Agregar producto</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+            <app-custom-input [control]="formProduct" type="text" label="Titulo"></app-custom-input>
+            <div class="validators" *ngIf="formProduct.controls.titulo.errors && formProduct.controls.titulo.dirty">
+              <div *ngIf="formProduct.controls.titulo.errors?.['required']">Este campo es requerido</div>
+              <div *ngIf="formProduct.controls.titulo.errors?.['minLenght']">Este campo debe tener al menos 4 caracteres</div>
+            </div>
+            <app-custom-input [control]="formProduct" type="textarea" label="Comentarios"></app-custom-input>
+            <div class="validators" *ngIf="formProduct.controls.comentarios.errors && formProduct.controls.comentarios.diry">
+              <div *ngIf="formProduct.controls.comentarios.errors?.['required']">Este campo debe ser requerido</div>
+            </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-content>
+</ion-content>

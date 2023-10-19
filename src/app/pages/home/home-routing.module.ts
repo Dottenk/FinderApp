@@ -10,7 +10,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'article'
+        redirectTo: 'start'
       },
       {
         path: 'start',
@@ -24,19 +24,7 @@ const routes: Routes = [
         path: 'list',
         loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
       }
-    ]
-  },
-  {
-    path: 'article',
-    loadChildren: () => import('./article/article.module').then( m => m.ArticlePageModule)
-  },
-  {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
-  },
-  {
-    path: 'start',
-    loadChildren: () => import('./start/start.module').then( m => m.StartPageModule)
+    ],
   },
 ];
 
