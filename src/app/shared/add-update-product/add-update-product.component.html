@@ -12,17 +12,29 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-            <app-custom-input [control]="formProduct" type="text" label="Titulo"></app-custom-input>
+          <form [formGroup]="formProduct">
+            <app-custom-input [control]="formProduct.controls.titulo" type="text" label="Titulo"></app-custom-input>
             <div class="validators" *ngIf="formProduct.controls.titulo.errors && formProduct.controls.titulo.dirty">
               <div *ngIf="formProduct.controls.titulo.errors?.['required']">Este campo es requerido</div>
               <div *ngIf="formProduct.controls.titulo.errors?.['minLenght']">Este campo debe tener al menos 4 caracteres</div>
             </div>
-            <app-custom-input [control]="formProduct" type="textarea" label="Comentarios"></app-custom-input>
-            <div class="validators" *ngIf="formProduct.controls.comentarios.errors && formProduct.controls.comentarios.diry">
-              <div *ngIf="formProduct.controls.comentarios.errors?.['required']">Este campo debe ser requerido</div>
+            <div id="container">
+              <div id="comentarios">
+                <app-custom-input [control]="formProduct.controls.comentarios" type="textarea" label="Comentario #{{countClicks}}"></app-custom-input>
+                <div class="validators" *ngIf="formProduct.controls.comentarios.errors && formProduct.controls.comentarios.dirty">
+                  <div *ngIf="formProduct.controls.comentarios.errors?.['required']">Este campo debe ser requerido</div>
+                  <div *ngIf="formProduct.controls.comentarios.errors?.['minLenght']">Debe contener al menos 1 caracter</div>
+                  <div *ngIf="formProduct.controls.comentarios.errors?.['maxLenght']">Debe contener a lo mas 35 caracteres</div>
+                </div>
+              </div>
             </div>
+            <ion-button slot="end" (click)="addFields()" fill="clear" shape="round" size="full"><ion-icon name="pricetag-outline" slot="end"></ion-icon>Agregar comentario</ion-button>
+          </form>
             <ion-button fill="clear" shape="round" size="full" (click)="takeImage()">
-              <ion-icon name="camera-outline"></ion-icon> Agregar fotografia
+              <ion-icon name="camera-outline" slot="end"></ion-icon> Agregar fotografia
+            </ion-button>
+            <ion-button shape="round" size="full" (click)="createProduct()">
+              <ion-icon name="document-outline" slot="end"></ion-icon> Agregar producto
             </ion-button>
         </ion-content>
       </ng-template>

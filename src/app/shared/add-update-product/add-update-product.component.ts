@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import { IonModal } from '@ionic/angular';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { Producto } from 'src/app/models/product.models';
 import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -15,9 +14,27 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class AddUpdateProductComponent  implements OnInit {
 
   isModalOpen = false;
+  countClicks = 1;
+
+  addFields(){
+    if(this.countClicks == 2){
+      this.utilsSvc.presentToast({
+        message: 'Solo puedes agregar 2 comentarios',
+        color: 'warning',
+        icon: 'alert-circle-outline',
+        duration: 1500
+      });
+    } else{
+      this.countClicks += 1;
+      var container = document.getElementById("comentarios");
+      let clone = container.cloneNode(true);
+      container.appendChild(clone);
+    }
+  }
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+    this.countClicks = 1;
   }
 
   @Input() product: Producto;
@@ -27,7 +44,7 @@ export class AddUpdateProductComponent  implements OnInit {
     id: new FormControl(''),
     titulo: new FormControl('', [Validators.required, Validators.minLength(4)]),
     image: new FormControl('', [Validators.required]),
-    comentarios: new FormControl([], [Validators.required, Validators.minLength(1)])
+    comentarios: new FormControl([], [Validators.required, Validators.minLength(1), Validators.maxLength(35)])
   })
 
   constructor(
