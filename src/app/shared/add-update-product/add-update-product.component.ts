@@ -61,10 +61,17 @@ export class AddUpdateProductComponent  implements OnInit {
     }
   }
 
-  createProduct(){
+  async createProduct(){
     let path = `users/${this.user.uid}`
 
     this.utilsSvc.presentLoading();
+    delete this.formProduct.value.id;
+
+    let dataUrl = this.formProduct.value.image;
+    let imagePath = `${this.user.uid}/${Date.now()}`;
+    let imageUrl = (await this.firebaseSvc.uploadImage(imagePath, dataUrl));
+    this.formProduct.controls.image.setValue(imageUrl);
+
     delete this.formProduct.value.id;
 
     this.firebaseSvc.addToSubcollection(path, 'productos', this.formProduct.value).then(res => {

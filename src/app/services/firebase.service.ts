@@ -4,6 +4,9 @@ import { User } from '../models/user.models';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { AngularFirestore } from '@angular/fire/compat/firestore'
+import { addDoc, collection } from '@angular/fire/firestore'
+import { getFirestore } from 'firebase/firestore';
+import { getStorage, uploadString, ref, getDownloadURL } from 'firebase/storage'
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +58,15 @@ export class FirebaseService {
 
   deleteDocument(path: string){
     return this.db.doc(path).delete();
+  }
+
+  addDocument(path: string, data: any){
+    return addDoc(collection(getFirestore(), path), data);
+  }
+
+  uploadImage(path: string, data_url: string){
+    return uploadString(ref(getStorage(), path), data_url, 'data_url').then(() => {
+      return getDownloadURL(ref(getStorage(), path));
+    })
   }
 }

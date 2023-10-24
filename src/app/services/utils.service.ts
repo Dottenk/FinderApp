@@ -22,13 +22,11 @@ export class UtilsService {
   async takePicture () {
     return await Camera.getPhoto({
       quality: 100,
-      allowEditing: true,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt,
+      promptLabelHeader: 'Selecciona en metodo para subir imagen',
       promptLabelPhoto: 'Elije una foto de tu Galeria',
       promptLabelPicture: 'Toma una foto',
-      height: 500,
-      width: 500
     });
 
   }

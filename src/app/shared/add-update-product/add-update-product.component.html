@@ -30,9 +30,14 @@
             </div>
             <ion-button slot="end" (click)="addFields()" fill="clear" shape="round" size="full"><ion-icon name="pricetag-outline" slot="end"></ion-icon>Agregar comentario</ion-button>
           </form>
+          <div *ngIf="formProduct.value.image">
+            <ion-img [src]="formProduct.value.image"></ion-img>
+          </div>
+          <div *ngIf="!formProduct.value.image">
             <ion-button fill="clear" shape="round" size="full" (click)="takeImage()">
               <ion-icon name="camera-outline" slot="end"></ion-icon> Agregar fotografia
             </ion-button>
+          </div>
             <ion-button shape="round" size="full" (click)="createProduct()">
               <ion-icon name="document-outline" slot="end"></ion-icon> Agregar producto
             </ion-button>
