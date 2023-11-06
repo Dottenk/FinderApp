@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User } from '@firebase/auth';
+import { Producto } from 'src/app/models/product.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -15,6 +17,10 @@ export class HomePage {
   )
   {}
 
+  products: Producto[] = [];
+  user = {} as User;
+
+
   signOut(){
     this.firebaseSvc.signOut();
     this.utilsSvc.presentLoading({message: 'Cerrando sesion...', mode: 'ios', duration: 1000});
@@ -23,6 +29,26 @@ export class HomePage {
     this.utilsSvc.dismissLoading();
   }
 
+  ionViewWillEnter(){
+    this.getUser();
+    this.getProduct();
+  }
 
+  getUser(){
+    return this.user = this.utilsSvc.getElementInLocalStorage("user");
+  }
+
+  getProduct(){
+    let user : User = this.utilsSvc.getElementInLocalStorage("user");
+    let path = `users/${user.uid}`;
+
+    let sub = this.firebaseSvc.getSubcollection(path, 'productos').subscribe({
+      next: (res : Producto[]) => {
+          console.log(res);
+          this.products = res;
+          sub.unsubscribe();
+      }
+    })
+  }
 
 }
