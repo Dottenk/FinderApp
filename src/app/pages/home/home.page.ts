@@ -17,8 +17,7 @@ export class HomePage {
   )
   {}
 
-  products: Producto[] = [];
-  user = {} as User;
+  
 
 
   signOut(){
@@ -29,26 +28,5 @@ export class HomePage {
     this.utilsSvc.dismissLoading();
   }
 
-  ionViewWillEnter(){
-    this.getUser();
-    this.getProduct();
-  }
-
-  getUser(){
-    return this.user = this.utilsSvc.getElementInLocalStorage("user");
-  }
-
-  getProduct(){
-    let user : User = this.utilsSvc.getElementInLocalStorage("user");
-    let path = `users/${user.uid}`;
-
-    let sub = this.firebaseSvc.getSubcollection(path, 'productos').subscribe({
-      next: (res : Producto[]) => {
-          console.log(res);
-          this.products = res;
-          sub.unsubscribe();
-      }
-    })
-  }
 
 }

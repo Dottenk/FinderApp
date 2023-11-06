@@ -34,7 +34,12 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () => import('./pages/home/list/list.module').then( m => m.ListPageModule)
-  }
+  },
+  {
+    path: 'start',
+    loadChildren: () => import('./pages/home/start/start.module').then( m => m.StartPageModule)
+  },
+  
 ];
 
 @NgModule({

@@ -5,4 +5,15 @@
     </ion-toolbar>
   </ion-header>
   <app-add-update-product></app-add-update-product>
+    <ion-row>
+      <ion-col>
+        <div *ngfor="let product of products">
+          <ion-card>
+            <div class="productTitle">
+              <p>{{product.titulo}}</p>
+            </div>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
 </ion-content>
