@@ -17,9 +17,6 @@ export class HomePage {
   )
   {}
 
-  
-
-
   signOut(){
     this.firebaseSvc.signOut();
     this.utilsSvc.presentLoading({message: 'Cerrando sesion...', mode: 'ios', duration: 1000});
