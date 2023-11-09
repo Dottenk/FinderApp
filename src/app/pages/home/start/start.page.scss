@@ -1,0 +1,26 @@
+ion-thumbnail {
+  --size: 140px;
+  --border-radius: 14px;
+}
+
+ion-button, ion-card{
+  width: 100%;
+  padding: 0 !important;
+}
+
+ion-button{
+  --padding-end: 0 !important;
+  --padding-start: 0!important;
+}
+
+ion-thumbnail{
+  margin: 2% 0% 2% 5% !important;
+}
+
+ion-badge{
+  margin-right: 10px !important;
+}
+
+#badge-product{
+  text-align: justify;
+}

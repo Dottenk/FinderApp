@@ -19,7 +19,6 @@ export class LoginPage implements OnInit {
   constructor(
     private utilsSvc: UtilsService,
     private firebaseSvc: FirebaseService,
-    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
