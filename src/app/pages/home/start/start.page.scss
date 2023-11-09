@@ -17,10 +17,42 @@ ion-thumbnail{
   margin: 2% 0% 2% 5% !important;
 }
 
-ion-badge{
-  margin-right: 10px !important;
+
+
+h3{
+  text-align: left;
+  margin-left: 20px;
 }
 
-#badge-product{
-  text-align: justify;
+ion-col.badge-product{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+//MD
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  ion-col.badge-product{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    order: 2;
+  }
+  ion-col.badge-product-text{
+    text-align: end;
+    order: 1;
+  }
+}
+
+//LG
+@media screen  and (min-width: 992px) and (max-width: 1199px) {
+  ion-col.badge-product{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    order: 2;
+  }
+  ion-col.badge-product-text{
+    order: 1;
+  }
 }

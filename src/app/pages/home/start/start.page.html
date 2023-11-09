@@ -7,7 +7,6 @@
 
 
     <ion-list *ngIf="loading">
-      <!-- <ion-content *ngFor="let item of products"> -->
         <ion-list-header>
           <ion-skeleton-text [animated]="true" style="width: 80px; margin-left: 30px;"></ion-skeleton-text>
         </ion-list-header>
@@ -27,7 +26,25 @@
             </p>
           </ion-label>
         </ion-item>
-      <!-- </ion-content> -->
+        <ion-list-header>
+          <ion-skeleton-text [animated]="true" style="width: 80px; margin-left: 30px;"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text [animated]="true" style="width: 80%; margin-left: 15px;"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text [animated]="true" style="width: 60%; margin-left: 15px;"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text [animated]="true" style="width: 30%; margin-left: 15px;"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
     </ion-list>
 
 
@@ -46,23 +63,32 @@
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col>
+              <ion-col size="4">
                 <ion-thumbnail>
                   <ion-img src="{{product.image}}"></ion-img>
                 </ion-thumbnail>
               </ion-col>
-              <ion-col>
-                <div  *ngFor="let b of background | slice:0:1">
-                    <div *ngIf="product.estado === 'anunciado'" class="badge-product">
-                      <ion-badge color="{{b}}" >A</ion-badge>Anunciado
-                    </div>
-                    <div *ngIf="product.estado === 'custodiado'" class="badge-product">
-                      <ion-badge color="{{b}}">C</ion-badge>Custodia
-                    </div>
-                    <div *ngIf="product.estado === 'entregado'" class="badge-product">
-                      <ion-badge color="{{b}}"></ion-badge>Entregado
-                    </div>
-                  </div>
+              <ion-col size="8">
+                <ion-row>
+                  <ion-col size-lg="1" size-md="2" size-sm="3" *ngIf="product.estado === 'anunciado'" class="badge-product">
+                      <ion-badge color="warning">A</ion-badge>
+                  </ion-col>
+                  <ion-col size-lg="1" size-md="1"  size-sm="3"  *ngIf="product.estado === 'custodiado'" class="badge-product">
+                      <ion-badge color="primary">C</ion-badge>
+                  </ion-col>
+                    <ion-col size-lg="1" size-md="1"  size-sm="3" *ngIf="product.estado === 'entregado'" class="badge-product">
+                      <ion-badge color="success"></ion-badge>
+                  </ion-col>
+                  <ion-col size-lg="2" offset-lg="9" size-md="10"  size-sm="9" *ngIf="product.estado === 'anunciado'" class="badge-product-text">
+                    <p>Anunciado</p>
+                  </ion-col>
+                  <ion-col size-lg="2" offset-lg="9" size-md="10"  size-sm="9" *ngIf="product.estado === 'custodiado'" class="badge-product-text">
+                    <p>En custodia</p>
+                  </ion-col>
+                  <ion-col size-lg="2"  offset-lg="9" size-md="1" size-sm="9" *ngIf="product.estado === 'entregado'" class="badge-product-text">
+                    <p>Entregado</p>
+                  </ion-col>
+                </ion-row>
               </ion-col>
             </ion-row>
           </ion-card>

@@ -23,8 +23,6 @@ export class StartPage implements OnInit {
   user = {} as User;
   loading = true;
   lenght : any;
-  background: string[]  = [];
-  printed: boolean = false;
 
   ionViewWillEnter(){
     this.getUser();
@@ -44,25 +42,10 @@ export class StartPage implements OnInit {
       next: (res : Producto[]) => {
           console.log(res);
           this.products = res;
-          this.getProductsBackground();
           sub.unsubscribe();
           this.lenght = Array(res.length).fill(0);
           this.loading = false;
       }
     });
   }
-
-  getProductsBackground(){
-    for (let producto of this.products) {
-      if (producto.estado === 'anunciado') {
-        this.background.push('warning');
-      }if (producto.estado === 'custodiado') {
-        this.background.push('primary');
-      }if (producto.estado === 'entregado') {
-        this.background.push('success');
-      }
-    }
-    console.log(this.background);
-  }
-
 }
