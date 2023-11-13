@@ -25,10 +25,12 @@ export class LoginPage implements OnInit {
 
   }
 
-  onSubmit(){
+  async onSubmit(){
     if(this.form.valid){
-      this.utilsSvc.presentLoading({spinner: 'lines-sharp',message: 'Autenticando...', mode: 'ios',duration: 2000});
-      this.firebaseSvc.login(this.form.value as User).then( res => {
+const loading = await this.utilsSvc.presentLoading();
+await loading.present();
+
+        this.firebaseSvc.login(this.form.value as User).then( res => {
         console.log(res);
         let user: User = {
           uid: res.user.uid,
@@ -36,7 +38,7 @@ export class LoginPage implements OnInit {
           email: res.user.email,
           
         }
-        console.log(this.form)
+        
 
         this.utilsSvc.setElementInLocalStorage('user', user);
         this.utilsSvc.routerLink('/home');
@@ -50,13 +52,14 @@ export class LoginPage implements OnInit {
           mode: 'ios'
         });
         this.form.reset();
-      }, error => {
-        this.utilsSvc.dismissLoading();
-        this.utilsSvc.presentToast({
+      }).catch( error => {
+        console.log(error);
+       this.utilsSvc.presentToast({
           message: error.message,
           duration: 5000,
           color: 'warning',
-          icon: 'alert-circle-outline'
+          icon: 'alert-circle-outline',
+          position: 'middle'
         });
         this.utilsSvc.dismissLoading();
       });

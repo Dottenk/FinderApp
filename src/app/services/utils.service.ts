@@ -32,9 +32,9 @@ export class UtilsService {
   }
 
   // Loading
-  async presentLoading(opts?: LoadingOptions) {
-    const loading = await this.loadingController.create(opts);
-    await loading.present();
+  async presentLoading() {
+    return this.loadingController.create({spinner: 'lines-sharp',message: 'Autenticando...', mode: 'ios',duration: 2000});
+    
   }
 
   async dismissLoading() {
@@ -46,15 +46,15 @@ export class UtilsService {
   setElementInLocalStorage(key: string, value: any) {
     return localStorage.setItem(key, JSON.stringify(value));
   }
-
+//obtener objetos
   getElementInLocalStorage(key: string) {
     return JSON.parse(localStorage.getItem(key));
   }
-
+//eliminar objeto
   removeElementInLocalStorage(key: string) {
     localStorage.removeItem(key);
   }
-
+//toast
   async presentToast(opts: ToastOptions) {
     const toast = await this.toastController.create(opts);
     toast.present();

@@ -17,7 +17,7 @@ export class HomePage {
 
   signOut(){
     this.firebaseSvc.signOut();
-    this.utilsSvc.presentLoading({message: 'Cerrando sesion...', mode: 'ios', duration: 1000});
+    this.utilsSvc.presentLoading();
     this.utilsSvc.removeElementInLocalStorage('user');
     this.utilsSvc.routerLink('loader');
     this.utilsSvc.dismissLoading();

@@ -22,6 +22,7 @@
             <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div>
             <div *ngIf="form.controls.password.errors?.['password']">Ingresa una contraseña válida</div>
           </div>
+          <p>¿ Olvidaste tu contraseña ?</p>
           <ion-item class="login-card-btn" >
             <ion-button expand="block" mode="ios" type="onSubmit" size="large" shape="round" class="login-card-btn" [disabled]="form.invalid">
               <ion-icon name="log-in-outline" slot="end"></ion-icon>Acceder

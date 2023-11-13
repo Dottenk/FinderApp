@@ -38,7 +38,7 @@ export class RegisterPage implements OnInit {
 
   onSubmit(){
     if(this.registerForm.valid){
-      this.utilsSvc.presentLoading({message: 'Registrando...', mode: 'ios', duration: 2000});
+      this.utilsSvc.presentLoading();
       this.firebaseSvc.signUp(this.registerForm.value as User).then(async res => {
         console.log(res);
         let user: User = {
