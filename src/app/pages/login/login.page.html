@@ -4,8 +4,10 @@
       <ion-card-header>
         <ion-card-title></ion-card-title>
       </ion-card-header>
+
       <ion-card-content class="login-card-form">
-        <form class="ion-margin-vertical form-group" [formGroup]="form">
+        <form class="ion-margin-vertical form-group" [formGroup]="form" (ngSubmit)="onSubmit()" (keypress.enter)="onSubmit()">
+          <app-logo></app-logo>
           <ion-item class="no-border">
             <app-custom-input icon="person-outline" type="email" autocomplete="email" label="Correo" [control]="form.controls.email"></app-custom-input>
           </ion-item>
@@ -21,7 +23,7 @@
             <div *ngIf="form.controls.password.errors?.['password']">Ingresa una contraseña válida</div>
           </div>
           <ion-item class="login-card-btn" >
-            <ion-button expand="block" mode="ios" type="submit" size="large" shape="round" class="login-card-btn" [disabled]="form.invalid">
+            <ion-button expand="block" mode="ios" type="onSubmit" size="large" shape="round" class="login-card-btn" [disabled]="form.invalid">
               <ion-icon name="log-in-outline" slot="end"></ion-icon>Acceder
             </ion-button>
           </ion-item>

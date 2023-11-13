@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
 import { User } from '../models/user.models';
-import { getAuth, updateProfile } from 'firebase/auth';
+import { getAuth,signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { AngularFirestore } from '@angular/fire/compat/firestore'
 import { addDoc, collection } from '@angular/fire/firestore'
