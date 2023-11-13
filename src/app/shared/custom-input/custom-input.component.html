@@ -11,6 +11,5 @@
 </ion-item>
 
 <ion-item *ngIf="type === 'textarea'" class="ion-margin-vertical">
-  <ion-label position="floating">{{label}}</ion-label>
-  <ion-textarea auto-grow="true" debounce="500" [formControl]="control"></ion-textarea>
+  <ion-textarea auto-grow="true" debounce="500" [formControl]="control" labelPlacement="floating" label="{{label}}"></ion-textarea>
 </ion-item>

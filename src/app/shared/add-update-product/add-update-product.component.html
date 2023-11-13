@@ -1,6 +1,9 @@
-<ion-content>
-  <ion-content class="ion-padding">
-    <ion-button expand="block" (click)="setOpen(true)">Agregar producto perdido</ion-button>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
+      <ion-fab-button  expand="block" (click)="setOpen(true)">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
     <ion-modal [isOpen]="isModalOpen" mode="ios">
       <ng-template>
         <ion-header>
@@ -13,14 +16,14 @@
         </ion-header>
         <ion-content class="ion-padding">
           <form [formGroup]="formProduct">
-            <app-custom-input [control]="formProduct.controls.titulo" type="text" label="Titulo"></app-custom-input>
+            <app-custom-input [control]="formProduct.controls.titulo" type="text" label="Titulo" id="product-titulo"></app-custom-input>
             <div class="validators" *ngIf="formProduct.controls.titulo.errors && formProduct.controls.titulo.dirty">
               <div *ngIf="formProduct.controls.titulo.errors?.['required']">Este campo es requerido</div>
               <div *ngIf="formProduct.controls.titulo.errors?.['minLenght']">Este campo debe tener al menos 4 caracteres</div>
             </div>
             <div id="container">
               <div id="comentarios">
-                <app-custom-input [control]="formProduct.controls.comentarios" type="textarea" label="Comentario #{{countClicks}}"></app-custom-input>
+                <app-custom-input [control]="formProduct.controls.comentarios" type="textarea" label="Comentario #{{countClicks}}" id="comentario-{{countClicks}}" #comentario1></app-custom-input>
                 <div class="validators" *ngIf="formProduct.controls.comentarios.errors && formProduct.controls.comentarios.dirty">
                   <div *ngIf="formProduct.controls.comentarios.errors?.['required']">Este campo debe ser requerido</div>
                   <div *ngIf="formProduct.controls.comentarios.errors?.['minLenght']">Debe contener al menos 1 caracter</div>
@@ -44,5 +47,4 @@
         </ion-content>
       </ng-template>
     </ion-modal>
-  </ion-content>
-</ion-content>
+

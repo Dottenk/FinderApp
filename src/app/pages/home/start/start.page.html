@@ -49,54 +49,97 @@
 
 
 
-  <ion-grid *ngIf="!loading" >
-    <ion-row>
-      <ion-col>
+  <ion-content class="ion-padding">
+    <ion-grid *ngIf="!loading" >
+      <ion-row>
+        <ion-col>
 
-        <ion-button *ngFor="let product of products" lines="none" size-lg="6" size-md="6" size-sm="12" fill="none">
-          <ion-card>
-            <ion-row>
-              <ion-col size-lg="6" size-md="6" size-sm="12">
-                <div class="productTitle">
-                  <h3>{{product.titulo}}</h3>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="4">
-                <ion-thumbnail>
-                  <ion-img src="{{product.image}}"></ion-img>
-                </ion-thumbnail>
-              </ion-col>
-              <ion-col size="8">
-                <ion-row>
-                  <ion-col size-lg="1" size-md="2" size-sm="3" *ngIf="product.estado === 'anunciado'" class="badge-product">
-                      <ion-badge color="warning">A</ion-badge>
-                  </ion-col>
-                  <ion-col size-lg="1" size-md="1"  size-sm="3"  *ngIf="product.estado === 'custodiado'" class="badge-product">
-                      <ion-badge color="primary">C</ion-badge>
-                  </ion-col>
-                    <ion-col size-lg="1" size-md="1"  size-sm="3" *ngIf="product.estado === 'entregado'" class="badge-product">
-                      <ion-badge color="success"></ion-badge>
-                  </ion-col>
-                  <ion-col size-lg="2" offset-lg="9" size-md="10"  size-sm="9" *ngIf="product.estado === 'anunciado'" class="badge-product-text">
-                    <p>Anunciado</p>
-                  </ion-col>
-                  <ion-col size-lg="2" offset-lg="9" size-md="10"  size-sm="9" *ngIf="product.estado === 'custodiado'" class="badge-product-text">
-                    <p>En custodia</p>
-                  </ion-col>
-                  <ion-col size-lg="2"  offset-lg="9" size-md="1" size-sm="9" *ngIf="product.estado === 'entregado'" class="badge-product-text">
-                    <p>Entregado</p>
-                  </ion-col>
-                </ion-row>
-              </ion-col>
-            </ion-row>
-          </ion-card>
-        </ion-button>
+          <ion-button *ngFor="let product of products" lines="none" size-lg="6" size-md="6" size-sm="12" fill="none"  expand="block" (click)="setOpen(true)" (click)="getSelectedProduct(product.id)">
+            <ion-card id="{{product.id}}">
+              <ion-row>
+                <ion-col size-lg="6" size-md="6" size-sm="12">
+                  <div class="productTitle">
+                    <h3>{{product.titulo}}</h3>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="4">
+                  <ion-thumbnail>
+                    <ion-img src="{{product.image}}"></ion-img>
+                  </ion-thumbnail>
+                </ion-col>
+                <ion-col size="8">
+                  <ion-row>
+                    <ion-col size-lg="1" size-md="1" size-sm="3" size-xs="3" *ngIf="product.estado === 'anunciado'" class="badge-product">
+                        <ion-badge color="warning">A</ion-badge>
+                    </ion-col>
+                    <ion-col size-lg="1" size-md="1"  size-sm="3"  size-xs="3" *ngIf="product.estado === 'custodiado'" class="badge-product">
+                        <ion-badge color="primary">C</ion-badge>
+                    </ion-col>
+                      <ion-col size-lg="1" size-md="1"  size-sm="3" size-xs="3" *ngIf="product.estado === 'entregado'" class="badge-product">
+                        <ion-badge color="success">E</ion-badge>
+                    </ion-col>
+                    <ion-col size-lg="2" offset-lg="9" size-md="10"  size-sm="9" size-xs="9" *ngIf="product.estado === 'anunciado'" class="badge-product-text">
+                      <p>Anunciado</p>
+                    </ion-col>
+                    <ion-col size-lg="2" offset-lg="9" size-md="10"  size-sm="9" size-xs="9" *ngIf="product.estado === 'custodiado'" class="badge-product-text">
+                      <p>En custodia</p>
+                    </ion-col>
+                    <ion-col size-lg="2"  offset-lg="9" size-md="10" size-sm="9" size-xs="9" *ngIf="product.estado === 'entregado'" class="badge-product-text">
+                      <p>Entregado</p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngFor="let comentario of product.comentarios" class="product-comment-text">
+                    <p>{{comentario}}</p>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <ion-row class="product-date-text">
+                <p>{{formatDate(product.date)}}</p>
+              </ion-row>
+            </ion-card>
+          </ion-button>
 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+          <ion-modal [isOpen]="isModalOpen">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>{{productSelected.titulo}}</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                  <form [formGroup]="formSelectedProduct">
+                    <app-custom-input [control]="formSelectedProduct.controls.titulo" type="text" label="Titulo" value="{{productSelected.titulo}}"></app-custom-input>
+                    <div class="validators" *ngIf="formSelectedProduct.controls.titulo.errors && formSelectedProduct.controls.titulo.dirty">
+                      <div *ngIf="formSelectedProduct.controls.titulo.errors?.['required']">Este campo es requerido</div>
+                      <div *ngIf="formSelectedProduct.controls.titulo.errors?.['minLenght']">Este campo debe tener al menos 4 caracteres</div>
+                    </div>
+                    <div id="container">
+                      <div id="comentarios" *ngFor="let i of productSelected.comentarios; let indice = index">
+                        <app-custom-input [control]="formSelectedProduct.controls.comentarios" type="textarea" label="Comentario# {{indice+1}}" value="{{i}}"></app-custom-input>
+                        <div class="validators" *ngIf="formSelectedProduct.controls.comentarios.errors && formSelectedProduct.controls.comentarios.dirty">
+                          <div *ngIf="formSelectedProduct.controls.comentarios.errors?.['required']">Este campo debe ser requerido</div>
+                          <div *ngIf="formSelectedProduct.controls.comentarios.errors?.['minLenght']">Debe contener al menos 1 caracter</div>
+                          <div *ngIf="formSelectedProduct.controls.comentarios.errors?.['maxLenght']">Debe contener a lo mas 35 caracteres</div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
+  </ion-content>
 
   <app-add-update-product></app-add-update-product>
 
