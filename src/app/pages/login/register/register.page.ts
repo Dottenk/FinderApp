@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
-import { CustomValidators } from 'src/app/utils/custom-validators';
+import { User } from 'src/app/models/user.models';
 
 @Component({
   selector: 'app-register',
@@ -12,65 +11,52 @@ import { CustomValidators } from 'src/app/utils/custom-validators';
 })
 export class RegisterPage implements OnInit {
 
-  registerForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(4), , Validators.maxLength(15)]),
-    email: new FormControl('',[Validators.required, Validators.email]),
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('')
+    confirmPassword: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.minLength(4)])
   });
 
   constructor(
     private utilsSvc: UtilsService,
-    private firebaseSvc: FirebaseService
+    private firebaseSvc: FirebaseService,
   ) { }
 
   ngOnInit() {
-    this.confirmPasswordValidator();
+
   }
 
-  confirmPasswordValidator(){
-    this.registerForm.controls.confirmPassword.setValidators([
-      Validators.required,
-      CustomValidators.matchValues(this.registerForm.controls.password)
-    ])
-    this.registerForm.controls.confirmPassword.updateValueAndValidity();
-  }
+  async onSubmit(){
+    if(this.form.valid){
+const loading = await this.utilsSvc.presentLoading();
+await loading.present();
 
-  onSubmit(){
-    if(this.registerForm.valid){
-      this.utilsSvc.presentLoading();
-      this.firebaseSvc.signUp(this.registerForm.value as User).then(async res => {
-        console.log(res);
-        let user: User = {
-          uid: res.user.uid,
-          name: res.user.displayName,
-          email: res.user.email
-        }
-        await this.firebaseSvc.updateUser(user)
+        this.firebaseSvc.signUp(this.form.value as User).then( async res => {
+       
 
-
-        this.utilsSvc.setElementInLocalStorage('user', user);
-        this.utilsSvc.routerLink('/home');
-        this.utilsSvc.dismissLoading();
-
-        this.utilsSvc.presentToast({
-          message: `Te damos la bienvenida ${user.name}`,
-          duration: 1500,
-          color: 'primary',
-          icon: 'person-outline'
-        });
-        this.registerForm.reset();
-      }, error => {
-        this.utilsSvc.dismissLoading();
-        this.utilsSvc.presentToast({
-          message: error,
+       await this.firebaseSvc.updateUser(this.form.value.name);
+       console.log(res);
+             
+        this.form.reset();
+      }).catch( error => {
+        console.log(error);
+       this.utilsSvc.presentToast({
+          message: error.message,
           duration: 5000,
           color: 'warning',
-          icon: 'alert-circle-outline'
+          icon: 'alert-circle-outline',
+          position: 'middle'
         });
+
+        
+      }).finally(() => {
+        loading.dismiss();
       });
     }
   }
+
+
 
 
 }

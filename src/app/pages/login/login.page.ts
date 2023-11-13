@@ -25,48 +25,30 @@ export class LoginPage implements OnInit {
 
   }
 
-  async onSubmit(){
-    if(this.form.valid){
-const loading = await this.utilsSvc.presentLoading();
-await loading.present();
+  async onSubmit() {
+    if (this.form.valid) {
+      const loading = await this.utilsSvc.presentLoading();
+      await loading.present();
 
-        this.firebaseSvc.login(this.form.value as User).then( res => {
+      this.firebaseSvc.login(this.form.value as User).then(async res => {
+
+
         console.log(res);
-        let user: User = {
-          uid: res.user.uid,
-          name: res.user.displayName,
-          email: res.user.email,
-          
-        }
-        
 
-        this.utilsSvc.setElementInLocalStorage('user', user);
-        this.utilsSvc.routerLink('/home');
-        this.utilsSvc.dismissLoading();
-
-        this.utilsSvc.presentToast({
-          message: `Te damos la bienvenida ${user.name}`,
-          duration: 1500,
-          color: 'success',
-          icon: 'person-outline',
-          mode: 'ios'
-        });
-        this.form.reset();
-      }).catch( error => {
+      }).catch(error => {
         console.log(error);
-       this.utilsSvc.presentToast({
+        this.utilsSvc.presentToast({
           message: error.message,
           duration: 5000,
           color: 'warning',
           icon: 'alert-circle-outline',
           position: 'middle'
         });
-        this.utilsSvc.dismissLoading();
+
+
+      }).finally(() => {
+        loading.dismiss();
       });
     }
   }
-
-
-
-
 }

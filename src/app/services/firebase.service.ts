@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
 import { User } from '../models/user.models';
-import { getAuth,signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getAuth,signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { AngularFirestore } from '@angular/fire/compat/firestore'
 import { addDoc, collection } from '@angular/fire/firestore'
@@ -20,17 +20,20 @@ export class FirebaseService {
   ) { }
 
   // Autenticación
+
+  //acceder
   login(user: User) {
-    return this.auth.signInWithEmailAndPassword(user.email, user.password);
+    return signInWithEmailAndPassword(getAuth(),user.email, user.password);
+    
   }
-
+//crear usuario
   signUp(user: User) {
-    return this.auth.createUserWithEmailAndPassword(user.email, user.password);
+    return createUserWithEmailAndPassword(getAuth(),user.email, user.password);
   }
-
-  updateUser(user: any){
-    const auth = getAuth();
-    return updateProfile(auth.currentUser, user);
+//actualizar usuario
+  updateUser(displayName){
+    
+    return updateProfile(getAuth().currentUser, {displayName});
   }
 
   getAuthState() {

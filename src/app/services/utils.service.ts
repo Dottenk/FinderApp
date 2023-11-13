@@ -33,10 +33,10 @@ export class UtilsService {
 
   // Loading
   async presentLoading() {
-    return this.loadingController.create({spinner: 'lines-sharp',message: 'Autenticando...', mode: 'ios',duration: 2000});
+    return this.loadingController.create({spinner: 'lines-sharp',message: 'Autenticando...', mode: 'ios',duration: 5000});
     
   }
-
+//cierra el loading
   async dismissLoading() {
     return await this.loadingController.dismiss();
   }
