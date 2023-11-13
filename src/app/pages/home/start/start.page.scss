@@ -26,12 +26,14 @@ ion-thumbnail{
 h3{
   text-align: left;
   margin-left: 20px;
+  font-size: small;
 }
 
 ion-row.product-comment-text {
   display: flex;
   justify-content: end;
   align-items: center;
+  font-size: xx-small;
 }
 
 ion-row.product-date-text {
@@ -44,6 +46,12 @@ ion-row.product-date-text p {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-style: italic;
   font-size: xx-small;
+}
+
+ion-col.delete-product{
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
 
 //XS
@@ -102,6 +110,21 @@ ion-row.product-date-text p {
 
 //LG
 @media screen  and (min-width: 992px) and (max-width: 1199px) {
+  ion-col.badge-product{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    order: 2;
+  }
+  ion-col.badge-product-text{
+    order: 1;
+  }
+  ion-row.product-comment-text {
+    margin-right: 30px !important;
+  }
+}
+//XL
+@media screen  and (min-width: 1200px){
   ion-col.badge-product{
     display: flex;
     justify-content: start;

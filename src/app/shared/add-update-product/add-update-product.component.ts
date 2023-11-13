@@ -19,6 +19,7 @@ export class AddUpdateProductComponent  implements OnInit {
   isModalOpen = false;
   countClicks = 1;
   inputField: any[] = [];
+  products: Producto[] = [];
 
     constructor(
     private utilsSvc: UtilsService,
@@ -102,6 +103,8 @@ export class AddUpdateProductComponent  implements OnInit {
 
       this.utilsSvc.dismissLoading();
       this.isModalOpen = false;
+      this.countClicks = 1;
+      this.getProduct();
 
     }, error => {
       this.utilsSvc.presentToast({
@@ -121,6 +124,18 @@ export class AddUpdateProductComponent  implements OnInit {
       }
     }
 
+    getProduct(){
+      let user : User = this.utilsSvc.getElementInLocalStorage("user");
+      let path = `users/${user.uid}`;
+
+      let sub = this.firebaseSvc.getSubcollection(path, 'productos').subscribe({
+        next: (res : Producto[]) => {
+            console.log(res);
+            this.products = res;
+            sub.unsubscribe();
+        }
+      });
+    }
 
   async takeImage(){
     const dataUrl = (await this.utilsSvc.takePicture()).dataUrl;

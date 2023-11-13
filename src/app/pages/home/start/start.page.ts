@@ -86,6 +86,7 @@ export class StartPage implements OnInit {
       });
 
       this.utilsSvc.dismissLoading();
+      this.getProduct();
 
     }, error => {
       this.utilsSvc.presentToast({
@@ -97,6 +98,55 @@ export class StartPage implements OnInit {
 
       this.utilsSvc.dismissLoading();
     });
+  }
+
+  deleteProduct(product : Producto){
+    let path = `users/${this.user.uid}/productos/${product.id}`;
+
+    this.utilsSvc.presentLoading();
+
+    this.firebaseSvc.deleteDocument(path).then(res => {
+
+    this.utilsSvc.presentToast({
+      message: 'Producto eliminado exitosamente',
+      color: 'success',
+      icon: 'checkmark-circle-outline',
+      duration: 1500
+    });
+
+    this.getProduct();
+    this.utilsSvc.dismissLoading();
+
+    }, error => {
+      this.utilsSvc.presentToast({
+        message: error,
+        color: 'warning',
+        icon: 'alert-circle-outline',
+        duration: 5000
+      });
+
+      this.utilsSvc.dismissLoading();
+
+    });
+  }
+
+  confirmDeleteProduct(product: Producto){ {
+    this.utilsSvc.presentAlert({
+      header: 'Eliminar producto',
+      message: '¿Quieres eliminar este producto?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        }, {
+          text: 'Si, eliminar',
+          handler: () => {
+            this.deleteProduct(product);
+          }
+        }]
+      });
+    }
   }
 
   setOpen(isOpen: boolean) {
