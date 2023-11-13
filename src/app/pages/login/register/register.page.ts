@@ -1,4 +1,3 @@
-import { async } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.models';
@@ -42,12 +41,13 @@ export class RegisterPage implements OnInit {
       this.utilsSvc.presentLoading({message: 'Registrando...', mode: 'ios', duration: 2000});
       this.firebaseSvc.signUp(this.registerForm.value as User).then(async res => {
         console.log(res);
-        await this.firebaseSvc.updateUser({displayName: this.registerForm.value.name})
         let user: User = {
           uid: res.user.uid,
           name: res.user.displayName,
-          email: res.user.email,
+          email: res.user.email
         }
+        await this.firebaseSvc.updateUser(user)
+
 
         this.utilsSvc.setElementInLocalStorage('user', user);
         this.utilsSvc.routerLink('/home');
