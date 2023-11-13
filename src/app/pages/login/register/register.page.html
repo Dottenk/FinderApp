@@ -2,49 +2,42 @@
 <ion-content>
   <div class="flex-center">
     <ion-card class="register-card">
-     
       <ion-card-content>
         <form class="register-form" [formGroup]="registerForm">
-          <ion-item lines="none">
-            <app-custom-input icon="mail-outline" type="text" label="Nombre" [control]="registerForm.controls.name"></app-custom-input>
-            <div class="validators" *ngIf="registerForm.controls.name.errors && registerForm.controls.name.dirty">
-              <div *ngIf="registerForm.controls.name.errors?.['required']">Ingresa tu nombre</div>
-              <div *ngIf="registerForm.controls.name.errors?.['minlength']">Ingresa un nombre valido</div>
-            </div>
-          </ion-item>
-          <ion-item lines="none">
-            <app-custom-input icon="lock-closed-outline" type="email" label="Correo" [control]="registerForm.controls.email"></app-custom-input>
-            <div class="validators" *ngIf="registerForm.controls.email.errors && registerForm.controls.email.dirty">
-              <div *ngIf="registerForm.controls.email.errors?.['required']">Ingresa tu correo</div>
-              <div *ngIf="registerForm.controls.email.errors?.['email']">Ingresa un correo valido</div>
-            </div>
-          </ion-item>
-          <ion-item lines="none">
-            <app-custom-input icon="lock-closed-outline" type="password" label="Repita la contraseña" [control]="registerForm.controls.confirmPassword"></app-custom-input>
-            <div class="validators" *ngIf="registerForm.controls.confirmPassword.errors && registerForm.controls.confirmPassword.dirty">
-              <div *ngIf="registerForm.controls.confirmPassword.errors?.['required']">Ingresa tu contraseña</div>
-              <div *ngIf="registerForm.controls.confirmPassword.errors?.['noMatch']">Las contraseñas no coinciden</div>
-            </div>
-          </ion-item>
-          <ion-item lines="none">
-            <app-custom-input type="password" label="Repita la contraseña" [control]="registerForm.controls.confirmPassword"></app-custom-input>
-            <div class="validators" *ngIf="registerForm.controls.confirmPassword.errors && registerForm.controls.confirmPassword.dirty">
-              <div *ngIf="registerForm.controls.confirmPassword.errors?.['required']">Ingresa tu contraseña</div>
-              <div *ngIf="registerForm.controls.confirmPassword.errors?.['noMatch']">Las contraseñas no coinciden</div>
-            </div>
-          </ion-item>
           
-          <ion-item lines="none">
-            <ion-button  slot="start" routerLink=".."><ion-icon name="arrow-back-outline" size="large" shape="round"></ion-icon></ion-button>
-            <ion-button expand="block" type="submit" size="large" shape="round" (click)="onSubmit()">
-              <ion-icon name="person-add-outline" slot="end"></ion-icon>Crear</ion-button>
-          </ion-item>
-        </form>
-        <div>
+            <app-custom-input icon="person-outline" type="text" label="Nombre" [control]="registerForm.controls.name"></app-custom-input>
+           
+            <div class="validators" *ngIf="registerForm.controls.name.errors && registerForm.controls.name.touched">
+              <div *ngIf="registerForm.controls.name.errors?.['required']">Ingresa tu nombre</div>
+              <div *ngIf="registerForm.controls.name.errors?.['minlength']">Ingresa un nombre válido</div>
+            </div>
+          
          
+            <app-custom-input icon="mail-outline" type="email" label="Correo" [control]="registerForm.controls.email"></app-custom-input>
+            <div class="validators" *ngIf="registerForm.controls.email.errors && registerForm.controls.email.touched">
+              <div *ngIf="registerForm.controls.email.errors?.['required']">Ingresa tu correo</div>
+              <div *ngIf="registerForm.controls.email.errors?.['email']">Ingresa un correo válido</div>
+            </div>
+         
+            <app-custom-input icon="lock-closed-outline" type="password" label="Contraseña" [control]="registerForm.controls.password"></app-custom-input>
+            <div class="validators" *ngIf="registerForm.controls.password.errors && registerForm.controls.password.touched">
+              <div *ngIf="registerForm.controls.password.errors?.['required']">Ingresa tu contraseña</div>
+              <div *ngIf="registerForm.controls.password.errors?.['noMatch']">Las contraseñas no coinciden</div>
+            </div>
+         
+            <app-custom-input icon="lock-closed-outline" type="password" label="Repita la contraseña" [control]="registerForm.controls.confirmPassword"></app-custom-input>
+            <div class="validators" *ngIf="registerForm.controls.confirmPassword.errors && registerForm.controls.confirmPassword.touched">
+              <div *ngIf="registerForm.controls.confirmPassword.errors?.['required']">Ingresa tu contraseña</div>
+              <div *ngIf="registerForm.controls.confirmPassword.errors?.['noMatch']">Las contraseñas no coinciden</div>
+            </div>
         
-        </div>
-
+          
+          
+            <ion-button (click)="onSubmit()" expand="block" mode="ios" shape="round" type="submit" [disabled]="registerForm.invalid">
+              Registrar
+            </ion-button>
+         
+        </form>
       </ion-card-content>
     </ion-card>
   </div>
