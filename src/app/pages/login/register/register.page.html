@@ -6,21 +6,21 @@
       <ion-card-content>
         <form class="register-form" [formGroup]="registerForm">
           <ion-item lines="none">
-            <app-custom-input type="text" label="Nombre" [control]="registerForm.controls.name"></app-custom-input>
+            <app-custom-input icon="mail-outline" type="text" label="Nombre" [control]="registerForm.controls.name"></app-custom-input>
             <div class="validators" *ngIf="registerForm.controls.name.errors && registerForm.controls.name.dirty">
               <div *ngIf="registerForm.controls.name.errors?.['required']">Ingresa tu nombre</div>
               <div *ngIf="registerForm.controls.name.errors?.['minlength']">Ingresa un nombre valido</div>
             </div>
           </ion-item>
           <ion-item lines="none">
-            <app-custom-input type="email" label="Correo" [control]="registerForm.controls.email"></app-custom-input>
+            <app-custom-input icon="lock-closed-outline" type="email" label="Correo" [control]="registerForm.controls.email"></app-custom-input>
             <div class="validators" *ngIf="registerForm.controls.email.errors && registerForm.controls.email.dirty">
               <div *ngIf="registerForm.controls.email.errors?.['required']">Ingresa tu correo</div>
               <div *ngIf="registerForm.controls.email.errors?.['email']">Ingresa un correo valido</div>
             </div>
           </ion-item>
           <ion-item lines="none">
-            <app-custom-input type="password" label="Repita la contraseña" [control]="registerForm.controls.confirmPassword"></app-custom-input>
+            <app-custom-input icon="lock-closed-outline" type="password" label="Repita la contraseña" [control]="registerForm.controls.confirmPassword"></app-custom-input>
             <div class="validators" *ngIf="registerForm.controls.confirmPassword.errors && registerForm.controls.confirmPassword.dirty">
               <div *ngIf="registerForm.controls.confirmPassword.errors?.['required']">Ingresa tu contraseña</div>
               <div *ngIf="registerForm.controls.confirmPassword.errors?.['noMatch']">Las contraseñas no coinciden</div>
