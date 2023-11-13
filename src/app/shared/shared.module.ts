@@ -5,15 +5,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CustomInputComponent } from './custom-input/custom-input.component';
 import { AddUpdateProductComponent } from './add-update-product/add-update-product.component';
+import { LogoComponent } from './logo/logo.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     CustomInputComponent,
-    AddUpdateProductComponent
+    AddUpdateProductComponent,
+    HeaderComponent,
+    LogoComponent
   ],
   exports: [
     CustomInputComponent,
-    AddUpdateProductComponent
+    AddUpdateProductComponent,
+    LogoComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

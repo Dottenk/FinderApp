@@ -1,11 +1,10 @@
+<app-header title="Registro"></app-header>
 <ion-content>
   <div class="flex-center">
     <ion-card class="register-card">
-      <ion-card-header>
-          <ion-card-title>Registrate</ion-card-title>
-      </ion-card-header>
+     
       <ion-card-content>
-        <form class="register-form" (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+        <form class="register-form" [formGroup]="registerForm">
           <ion-item lines="none">
             <app-custom-input type="text" label="Nombre" [control]="registerForm.controls.name"></app-custom-input>
             <div class="validators" *ngIf="registerForm.controls.name.errors && registerForm.controls.name.dirty">
@@ -21,10 +20,11 @@
             </div>
           </ion-item>
           <ion-item lines="none">
-            <app-custom-input type="password" label="Contraseña" [control]="registerForm.controls.password"></app-custom-input>
-            <ng-container class="validators" *ngIf="registerForm.controls.password.errors && registerForm.controls.password.dirty">
-              <div *ngIf="registerForm.controls.password.errors?.['required']">Ingresa tu contraseña</div>
-            </ng-container>
+            <app-custom-input type="password" label="Repita la contraseña" [control]="registerForm.controls.confirmPassword"></app-custom-input>
+            <div class="validators" *ngIf="registerForm.controls.confirmPassword.errors && registerForm.controls.confirmPassword.dirty">
+              <div *ngIf="registerForm.controls.confirmPassword.errors?.['required']">Ingresa tu contraseña</div>
+              <div *ngIf="registerForm.controls.confirmPassword.errors?.['noMatch']">Las contraseñas no coinciden</div>
+            </div>
           </ion-item>
           <ion-item lines="none">
             <app-custom-input type="password" label="Repita la contraseña" [control]="registerForm.controls.confirmPassword"></app-custom-input>
@@ -33,15 +33,16 @@
               <div *ngIf="registerForm.controls.confirmPassword.errors?.['noMatch']">Las contraseñas no coinciden</div>
             </div>
           </ion-item>
+          
+          <ion-item lines="none">
+            <ion-button  slot="start" routerLink=".."><ion-icon name="arrow-back-outline" size="large" shape="round"></ion-icon></ion-button>
+            <ion-button expand="block" type="submit" size="large" shape="round" (click)="onSubmit()">
+              <ion-icon name="person-add-outline" slot="end"></ion-icon>Crear</ion-button>
+          </ion-item>
         </form>
         <div>
-          <ion-content class="card-footer">
-            <ion-item lines="none">
-              <ion-button  slot="start" routerLink=".."><ion-icon name="arrow-back-outline" size="large" shape="round"></ion-icon></ion-button>
-              <ion-button expand="block" type="submit" size="large" shape="round" (click)="onSubmit()">
-                <ion-icon name="person-add-outline" slot="end"></ion-icon>Crear</ion-button>
-            </ion-item>
-          </ion-content>
+         
+        
         </div>
 
       </ion-card-content>
