@@ -13,6 +13,7 @@ export class RegisterPage implements OnInit {
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
+    confirmEmail: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)])
@@ -38,7 +39,7 @@ await loading.present();
        await this.firebaseSvc.updateUser(this.form.value.name);
        console.log(res);
              
-        this.form.reset();
+        
       }).catch( error => {
         console.log(error);
        this.utilsSvc.presentToast({
