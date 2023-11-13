@@ -5,35 +5,35 @@
         <ion-card-title></ion-card-title>
       </ion-card-header>
       <ion-card-content class="login-card-form">
-          <form  class="ion-margin-vertical form-group" [formGroup]="form">
-            <ion-item class="no-border">
-                <app-custom-input icon="person-outline" type="email" aria-label="email" autocomplete="email" label="Correo" [control]="form.controls.email" required></app-custom-input>
-            </ion-item>
-            <ng-container class="validators" *ngIf="form.controls.email.errors && form.controls.email.dirty">
-              <span *ngIf="form.controls.email.errors?.['required']">Ingresa tu correo</span>
-              <span *ngIf="form.controls.email.errors?.['email']">Ingresa un correo valido</span>
-            </ng-container>
-            <ion-item class="no-border">
-              <app-custom-input icon="lock-closed-outline" type="password" aria-label="password" label="Contraseña" [control]="form.controls.password"></app-custom-input>
-            </ion-item>
-            <ng-container class="validators" *ngIf="form.controls.password.errors && form.controls.password.dirty">
-              <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div>
-              <div *ngIf="form.controls.password.errors?.['password']">Ingresa una contraseña valida</div>
-            </ng-container>
-            <ion-item class="login-card-btn" lines="none">
-              <ion-button expand="block" type="submit" size="large" shape="round" class="login-card-btn" [disabled]="form.invalid" (click)="onSubmit()">
-                <ion-icon name="log-in-outline" slot="end"></ion-icon>Acceder</ion-button>
-            </ion-item>
-          </form>
+        <form class="ion-margin-vertical form-group" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <ion-item class="no-border">
+            <app-custom-input icon="person-outline" type="email" aria-label="email" autocomplete="email" label="Correo" [control]="form.controls.email" required></app-custom-input>
+          </ion-item>
+          <ng-container class="validators" *ngIf="form.controls.email.errors && form.controls.email.dirty">
+            <span *ngIf="form.controls.email.errors?.['required']">Ingresa tu correo</span>
+            <span *ngIf="form.controls.email.errors?.['email']">Ingresa un correo válido</span>
+          </ng-container>
+          <ion-item class="no-border">
+            <app-custom-input icon="lock-closed-outline" type="password" aria-label="password" label="Contraseña" [control]="form.controls.password"></app-custom-input>
+          </ion-item>
+          <ng-container class="validators" *ngIf="form.controls.password.errors && form.controls.password.dirty">
+            <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div>
+            <div *ngIf="form.controls.password.errors?.['password']">Ingresa una contraseña válida</div>
+          </ng-container>
+          <ion-item class="login-card-btn" lines="none">
+            <ion-button expand="block" type="submit" size="large" shape="round" class="login-card-btn" [disabled]="form.invalid">
+              <ion-icon name="log-in-outline" slot="end"></ion-icon>Acceder
+            </ion-button>
+          </ion-item>
+        </form>
         <ion-item-divider></ion-item-divider>
         <p>¿No tienes una cuenta?</p>
         <ion-item class="register-card-btn" lines="none">
-          <ion-button expand="block" type="submit" size="large" shape="round" class="login-card-btn" routerLink="register">
-            <ion-icon name="person-add-outline" slot="end"></ion-icon>Registrate</ion-button>
+          <ion-button expand="block" size="large" shape="round" class="login-card-btn" routerLink="register">
+            <ion-icon name="person-add-outline" slot="end"></ion-icon>Regístrate
+          </ion-button>
         </ion-item>
       </ion-card-content>
     </ion-card>
   </div>
 </ion-content>
-
-
