@@ -33,8 +33,10 @@ export class LoginPage implements OnInit {
         let user: User = {
           uid: res.user.uid,
           name: res.user.displayName,
-          email: res.user.email
+          email: res.user.email,
+          
         }
+        console.log(this.form)
 
         this.utilsSvc.setElementInLocalStorage('user', user);
         this.utilsSvc.routerLink('/home');
