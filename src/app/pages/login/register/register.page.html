@@ -1,9 +1,7 @@
 <ion-content>
-  <div class="flex-center back">
+  <div class="d-flex-center back">
     <ion-card class="login-card back-logo main">
-      <ion-card-header>
-        <ion-card-title></ion-card-title>
-      </ion-card-header>
+     <app-header backButton="/login" ></app-header>
 
       <ion-card-content class="login-card-form">
         <form class="ion-margin-vertical form-group" [formGroup]="form" (ngSubmit)="onSubmit()"
