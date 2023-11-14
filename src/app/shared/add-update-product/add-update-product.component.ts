@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { Producto } from 'src/app/models/product.models';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Product } from 'src/app/models/product.models';
 import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -11,179 +11,142 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './add-update-product.component.html',
   styleUrls: ['./add-update-product.component.scss'],
 })
-export class AddUpdateProductComponent  implements OnInit {
+export class AddUpdateProductComponent implements OnInit {
 
-  @ViewChild ("comentario1") Comentario1: ElementRef;
-  @Input() product: Producto;
-  user  = {} as User;
-  isModalOpen = false;
-  countClicks = 1;
-  inputField: any[] = [];
-  products: Producto[] = [];
+  @Input() product: Product;
 
-    constructor(
-    private utilsSvc: UtilsService,
-    private firebaseSvc: FirebaseService
-  ) { }
 
-  ngOnInit(){
-    this.user = this.utilsSvc.getFromLocalStorage('user');
 
-    if(this.product){
-      this.formProduct.setValue(this.product);
-      this.formProduct.updateValueAndValidity();
-    }
-  }
+  firebaseSvc = inject(FirebaseService)
+  utilsSvc = inject(UtilsService)
+  user = {} as User;
 
-  addFields(){
-    if(this.countClicks == 2){
-      this.utilsSvc.presentToast({
-        message: 'Solo puedes agregar 2 comentarios',
-        color: 'warning',
-        icon: 'alert-circle-outline',
-        duration: 1500
-      });
-    } else{
-      var container = document.getElementById("container");
-      var comment = document.getElementById(`comentario-${this.countClicks}`);
-      let clone = comment.cloneNode(true);
-      container.appendChild(clone);
-      this.countClicks ++;
-    }
-  }
 
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
-    this.countClicks = 1;
-  }
 
-  formProduct = new FormGroup({
+  form = new FormGroup({
     id: new FormControl(''),
-    titulo: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    image: new FormControl('', [Validators.required]),
-    comentarios: new FormControl([], [Validators.required, Validators.minLength(1),
-     Validators.maxLength(35)]),
-    date: new FormControl(),
-    estado: new FormControl(false),
+    image: new FormControl('', [Validators.required,]),
+    description: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    category: new FormControl('', [Validators.required]),
+    status: new FormControl(false, [Validators.required]),
+    site: new FormControl('', [Validators.required])
+
   });
 
+  
 
-  async createProduct(){
-    let path = `users/${this.user.uid}`
+  ngOnInit() {
 
-    this.utilsSvc.presentLoading();
-    delete this.formProduct.value.id;
-
-    let dataUrl = this.formProduct.value.image;
-    let imagePath = `${this.user.uid}/${Date.now()}`;
-    let imageUrl = (await this.firebaseSvc.uploadImage(imagePath, dataUrl));
-    this.formProduct.controls.image.setValue(imageUrl);
-    this.formProduct.controls.date.setValue(Date.now());
-    this.formProduct.controls.estado.setValue(true);
-
-    for (let i = 1; i <= this.countClicks; i++) {
-      let element = document.getElementById(`comentario-${i}`)  as HTMLInputElement;
-      let string = element.textContent;
-      string = string.slice(13);
-      this.inputField.push(string);
-    }
-
-    this.formProduct.controls.comentarios.setValue(this.inputField);
-
-    delete this.formProduct.value.id;
-
-    this.firebaseSvc.addToSubcollection(path, 'productos', this.formProduct.value).then(() => {
-      this.utilsSvc.dismssModal({success: true});
-      this.utilsSvc.presentToast({
-        message: 'Producto creado correctamente',
-        color: 'success',
-        icon: 'checkmark-circle-outline',
-        duration: 1500
-      });
-
-      this.utilsSvc.dismissLoading();
-      this.isModalOpen = false;
-      this.countClicks = 1;
-      this.getProduct();
-
-    }, error => {
-      this.utilsSvc.presentToast({
-        message: error,
-        color: 'warning',
-        icon: 'alert-circle-outline',
-        duration: 5000
-      });
-
-      this.utilsSvc.dismissLoading();
-    });
+    this.user = this.utilsSvc.getFromLocalStorage('user');
+    if (this.product)
+      this.product.status = this.product.status !== undefined ? this.product.status : false;
+    this.form.setValue(this.product);
   }
 
-  onSubmit(){
-    if(this.formProduct.valid){
-        this.createProduct();
-      }
-    }
-
-    getProduct(){
-      let user : User = this.utilsSvc.getFromLocalStorage("user");
-      let path = `users/${user.uid}`;
-
-      let sub = this.firebaseSvc.getSubcollection(path, 'productos').subscribe({
-        next: (res : Producto[]) => {
-            console.log(res);
-            this.products = res;
-            sub.unsubscribe();
-        }
-      });
-    }
-
-  async takeImage(){
-    const dataUrl = (await this.utilsSvc.takePicture()).dataUrl;
-    this.formProduct.controls.image.setValue(dataUrl);
+//tomar foto con la camara
+  async takeImage() {
+    const dataUrl = (await this.utilsSvc.takePicture('Imagen del Producto')).dataUrl;
+    this.form.controls.image.setValue(dataUrl);
   }
 
-
-  //actualizar producto
-  // async updateProduct() {
-  //   let path = `users/${this.user.uid}`;
-  //   const loading = await this.utilsSvc.presentLoading();
+  submit(){
     
-  //   try {
-  //     // Si cambia la imagen, la reemplaza por la nueva
-  //     if (this.formProduct.value.image !== this.product.image) {
-  //       let dataUrl = this.formProduct.value.image;
-  //       let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl); // Utilizando tu función uploadImage
-  
-  //       this.formProduct.controls.image.setValue(imageUrl);
-  //     }
-  
-  //     // Elimina el campo 'id' antes de actualizar el documento
-  //     delete this.formProduct.value.id;
-  
-  //     // Actualiza el documento en Firestore
-  //     await this.firebaseSvc.updateDocument(path, this.formProduct.value);
-  
-  //     this.utilsSvc.presentToast({
-  //       message: 'Objeto actualizado correctamente',
-  //       duration: 2800,
-  //       color: 'success',
-  //       position: 'middle',
-  //       icon: 'checkmark-circle-outline'
-  //     });
-  
-  //   } catch (error) {
-  //     console.log(error);
-  
-  //     this.utilsSvc.presentToast({
-  //       message: error.message,
-  //       duration: 2800,
-  //       color: 'primary',
-  //       position: 'middle',
-  //       icon: 'alert-circle-outline'
-  //     });
-  
-  //   } finally {
-  //     loading.dismiss();
-  //   }
-  // }
+  }
+//crea producto
+  async createProduct() {
+    if (this.form.valid) {
+      
+    let path = `users/${this.user.uid}/products`
+      
+      const loading = await this.utilsSvc.presentLoading();
+      await loading.present();
+
+      //subir la imagen
+      let dataUrl = this.form.value.image;
+      let imagePath = `${this.user.uid}/${Date.now()}`;
+      let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+      this.form.controls.image.setValue(imageUrl);
+      delete this.form.value.id;
+
+
+      this.firebaseSvc.addDocument(path, this.form.value).then(async res => {  
+
+        this.utilsSvc.dismissModal({ succes: true})
+        
+        this.utilsSvc.presentToast({
+          message: 'Formulario creado exitosamente',
+          duration: 5000,
+          color: 'succes',
+          icon: 'checkmark-circle-outline',
+          position: 'middle'
+        });
+
+      }).catch(error => {
+        console.log(error);
+
+        this.utilsSvc.presentToast({
+          message: error.message,
+          duration: 5000,
+          color: 'warning',
+          icon: 'alert-circle-outline',
+          position: 'middle'
+        });
+
+
+      }).finally(() => {
+        loading.dismiss();
+      });
+    }
+  }
+ 
+ 
+
+ //actualiza producto
+  async updateProduct() {
+
+    let path = `users/${this.user.uid}/products/${this.product.id}`
+
+    const loading = await this.utilsSvc.presentLoading();
+    await loading.present()
+
+
+   //si cambio la imagen, la reemplaza por la nueva
+   if (this.form.value.image !== this.product.image) {
+     let dataUrl = this.form.value.image;
+      let imagePath = await this.firebaseSvc.getFilePath(this.product.image);
+     let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+     this.form.controls.image.setValue(imageUrl);
+   }
+
+
+     delete this.form.value.id;
+
+
+     this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
+       this.utilsSvc.dismissModal({ success: true });
+
+    this.utilsSvc.presentToast({
+         message: 'Objeto actualizado correctamente',
+         duration: 2800,
+       color: 'success',
+         position: 'middle',
+         icon: 'checkmark-circle-outline'
+       })
+       console.log(res);
+
+       //control de error metodo catch
+     }).catch(error => {
+      console.log(error);
+      this.utilsSvc.presentToast({
+       message: error.message,
+        duration: 2800,
+        color: 'primary',
+        position: 'middle',
+       icon: 'alert-circle-outline'
+       })
+       //cierra el loading
+     }).finally(() => {
+      loading.dismiss();
+    })
+   }
 }

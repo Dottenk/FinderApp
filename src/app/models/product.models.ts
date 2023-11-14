@@ -1,15 +1,15 @@
 import { Timestamp } from "firebase/firestore";
 
-export interface Producto{
+export interface Product{
   id: string,
-  titulo: string,
+  category: string,
   url?: string,
-  estado: boolean,
+  status: boolean,
   image: string,
-  comentarios: Comentario[],
-  date: Timestamp
+  description: string,
+  date: Timestamp,
+  site: string
 }
 
-export interface  Comentario{
-  name: string,
-}
+
+

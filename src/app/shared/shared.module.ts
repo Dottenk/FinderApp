@@ -14,14 +14,14 @@ import { HeaderComponent } from './header/header.component';
     AddUpdateProductComponent,
     HeaderComponent,
     LogoComponent,
-    AddUpdateProductComponent
+    
   ],
   exports: [
     CustomInputComponent,
     AddUpdateProductComponent,
     LogoComponent,
     HeaderComponent,
-    AddUpdateProductComponent
+    
   ],
   imports: [
     CommonModule,

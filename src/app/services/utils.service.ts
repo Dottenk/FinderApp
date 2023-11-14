@@ -19,12 +19,12 @@ export class UtilsService {
 
 
 //captura imagen desde la camara o galeria
-  async takePicture() {
+  async takePicture(promptLabelHeader: string) {
     return await Camera.getPhoto({
       quality: 100,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt,
-      promptLabelHeader: 'Selecciona el metodo para subir imagen',
+      promptLabelHeader,
       promptLabelPhoto: 'Elije una foto de tu Galeria',
       promptLabelPicture: 'Toma una foto',
     });
@@ -91,7 +91,7 @@ export class UtilsService {
   }
 
   // Dismiss / cierra la modal
-  dismssModal(data?: any) {
+  dismissModal(data?: any) {
     this.modalController.dismiss(data);
   }
 

@@ -1,5 +1,5 @@
 import { Component,  OnInit, ViewChild } from '@angular/core';
-import { Producto } from 'src/app/models/product.models';
+import { Product } from 'src/app/models/product.models';
 import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -20,8 +20,8 @@ export class StartPage implements OnInit {
   ngOnInit() {
   }
 
-  products: Producto[] = [];
-  productSelected: Producto = {} as Producto;
+  products: Product[] = [];
+  productSelected: Product = {} as Product;
   user = {} as User;
   loading = true;
   lenght : any;
@@ -48,7 +48,7 @@ export class StartPage implements OnInit {
     let path = `users/${user.uid}`;
 
     let sub = this.firebaseSvc.getSubcollection(path, 'productos').subscribe({
-      next: (res : Producto[]) => {
+      next: (res : Product[]) => {
           console.log(res);
           this.products = res;
           sub.unsubscribe();
@@ -77,7 +77,7 @@ export class StartPage implements OnInit {
     this.utilsSvc.presentLoading();
 
     this.firebaseSvc.updateDocument(path, this.formSelectedProduct.value).then(() => {
-      this.utilsSvc.dismssModal({success: true});
+      this.utilsSvc.dismissModal({success: true});
       this.utilsSvc.presentToast({
         message: 'Producto actualizado exitosamente',
         color: 'success',
@@ -100,7 +100,7 @@ export class StartPage implements OnInit {
     });
   }
 
-  deleteProduct(product : Producto){
+  deleteProduct(product : Product){
     let path = `users/${this.user.uid}/productos/${product.id}`;
 
     this.utilsSvc.presentLoading();
@@ -130,7 +130,7 @@ export class StartPage implements OnInit {
     });
   }
 
-  confirmDeleteProduct(product: Producto){ {
+  confirmDeleteProduct(product: Product){ {
     this.utilsSvc.presentAlert({
       header: 'Eliminar producto',
       message: '¿Quieres eliminar este producto?',

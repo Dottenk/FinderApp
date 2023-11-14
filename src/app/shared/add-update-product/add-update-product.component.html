@@ -1,50 +1,57 @@
+<ion-content>
+  <div class="d-flex-center back">
+    <ion-card class="login-card back-logo main">
+     <app-header backButton="/login" ></app-header>
 
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
-      <ion-fab-button  expand="block" (click)="setOpen(true)">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-    <ion-modal [isOpen]="isModalOpen" mode="ios">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Agregar producto</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)">Cerrar</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-padding">
-          <form [formGroup]="formProduct">
-            <app-custom-input [control]="formProduct.controls.titulo" type="text" label="Titulo" id="product-titulo"></app-custom-input>
-            <div class="validators" *ngIf="formProduct.controls.titulo.errors && formProduct.controls.titulo.dirty">
-              <div *ngIf="formProduct.controls.titulo.errors?.['required']">Este campo es requerido</div>
-              <div *ngIf="formProduct.controls.titulo.errors?.['minLenght']">Este campo debe tener al menos 4 caracteres</div>
-            </div>
-            <div id="container">
-              <div id="comentarios">
-                <app-custom-input [control]="formProduct.controls.comentarios" type="textarea" label="Comentario #{{countClicks}}" id="comentario-{{countClicks}}" #comentario1></app-custom-input>
-                <div class="validators" *ngIf="formProduct.controls.comentarios.errors && formProduct.controls.comentarios.dirty">
-                  <div *ngIf="formProduct.controls.comentarios.errors?.['required']">Este campo debe ser requerido</div>
-                  <div *ngIf="formProduct.controls.comentarios.errors?.['minLenght']">Debe contener al menos 1 caracter</div>
-                  <div *ngIf="formProduct.controls.comentarios.errors?.['maxLenght']">Debe contener a lo mas 35 caracteres</div>
-                </div>
-              </div>
-            </div>
-            <ion-button slot="end" (click)="addFields()" fill="clear" shape="round" size="full"><ion-icon name="pricetag-outline" slot="end"></ion-icon>Agregar comentario</ion-button>
-          </form>
-          <div *ngIf="formProduct.value.image">
-            <ion-img [src]="formProduct.value.image"></ion-img>
+      <ion-card-content class="login-card-form">
+        <form class="flex-center" [formGroup]="form" (ngSubmit)="submit()"
+          (keypress.enter)="submit()">
+          <app-logo></app-logo>
+          <ion-avatar *ngIf="form.value.image">
+            <img [src]="form.value.image" />
+          </ion-avatar>
+          <!-- si no existe imagen muestra un icono -->
+          <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+          <br>
+          <!-- toma o selecciona imagen -->
+          <ion-button mode="ios" (click)="takeImage()" size="small" shape="round">
+           Tomar/Selecionar
+          </ion-button>
+          <!-- CAMPO categoria -->
+          <app-custom-input type="text"  label="Catergoria"
+            [control]="form.controls.category"></app-custom-input>
+          <div class="validators" *ngIf="form.controls.category.errors && form.controls.category.touched">
+            <div *ngIf="form.controls.category.errors?.['required']">Ingresa la categoria del objeto</div>
+            <div *ngIf="form.controls.category.errors?.['Lenght']">El nombre debe tener mas de 4 caracteres</div>
           </div>
-          <div *ngIf="!formProduct.value.image">
-            <ion-button fill="clear" shape="round" size="full" (click)="takeImage()">
-              <ion-icon name="camera-outline" slot="end"></ion-icon> Agregar fotografia
-            </ion-button>
+          <!-- CAMPO descripcion -->
+          <app-custom-input type="text"  label="Descripcion completa"
+            [control]="form.controls.description"></app-custom-input>
+          <div class="validators" *ngIf="form.controls.description.errors && form.controls.description.touched">
+            <div *ngIf="form.controls.description.errors?.['required']">Ingresa una descripcion completa</div>
+            <div *ngIf="form.controls.description.errors?.['Lenght']">La descripcion debe tener mas de 4 caracteres</div>
           </div>
-            <ion-button shape="round" size="full" (click)="createProduct()">
-              <ion-icon name="document-outline" slot="end"></ion-icon> Agregar producto
-            </ion-button>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
+           <!-- CAMPO Lugar -->
+           <app-custom-input type="text"  label="Descripcion completa"
+           [control]="form.controls.site"></app-custom-input>
+         <div class="validators" *ngIf="form.controls.site.errors && form.controls.site.touched">
+           <div *ngIf="form.controls.site.errors?.['required']">Donde lo encontraste ?</div>
+           <div *ngIf="form.controls.site.errors?.['Lenght']">El lugar debe tener mas de 4 caracteres</div>
+         </div>
 
+         <!-- estado del objeto -->
+
+
+       
+          <ion-button (click)="submit()" expand="block" mode="ios" shape="round" type="submit"
+            [disabled]="form.invalid">
+            Agregar Objeto
+          </ion-button>
+
+        </form>
+
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
