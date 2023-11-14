@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
 
   }
 
-  async onSubmit() {
+  async submit() {
     if (this.form.valid) {
       const loading = await this.utilsSvc.presentLoading();
       await loading.present();

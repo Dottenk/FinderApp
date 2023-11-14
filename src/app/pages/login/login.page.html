@@ -6,8 +6,8 @@
       </ion-card-header>
 
       <ion-card-content class="login-card-form">
-        <form class="ion-margin-vertical form-group" [formGroup]="form" (ngSubmit)="onSubmit()"
-          (keypress.enter)="onSubmit()">
+        <form class="ion-margin-vertical form-group" [formGroup]="form" (ngSubmit)="submit()"
+          (keypress.enter)="submit()">
           <app-logo></app-logo>
           <!-- CAMPO CORREO -->
           <app-custom-input icon="person-outline" type="email" autocomplete="email" label="Correo"
@@ -29,7 +29,7 @@
 
           <!-- INICIA SESION -->
           <ion-item class="login-card-btn">
-            <ion-button expand="block" mode="ios" type="onSubmit" size="large" shape="round" class="login-card-btn"
+            <ion-button expand="block" mode="ios" type="submit" size="large" shape="round" class="login-card-btn"
               [disabled]="form.invalid">
               <ion-icon name="log-in-outline" slot="end"></ion-icon>Acceder
             </ion-button>
