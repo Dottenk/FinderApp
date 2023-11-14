@@ -88,7 +88,7 @@ export class UtilsService {
     }
   }
 
-  // Dismiss
+  // Dismiss / cierra la modal
   dismssModal(data?: any) {
     this.modalController.dismiss(data);
   }

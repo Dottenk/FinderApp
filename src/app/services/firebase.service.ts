@@ -3,7 +3,7 @@ import { UtilsService } from './utils.service';
 import { User } from '../models/user.models';
 import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
-import { AngularFirestore } from '@angular/fire/compat/firestore'
+import { AngularFirestore, } from '@angular/fire/compat/firestore'
 import { addDoc,doc,getDoc, collection, getFirestore, setDoc } from '@angular/fire/firestore'
 
 import { getStorage, uploadString, ref, getDownloadURL } from 'firebase/storage'

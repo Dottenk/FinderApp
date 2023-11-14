@@ -4,7 +4,7 @@ export interface Producto{
   id: string,
   titulo: string,
   url?: string,
-  estado: string,
+  estado: boolean,
   image: string,
   comentarios: Comentario[],
   date: Timestamp

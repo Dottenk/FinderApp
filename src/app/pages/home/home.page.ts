@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { AddUpdateProductComponent } from 'src/app/shared/add-update-product/add-update-product.component';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,12 @@ export class HomePage {
     this.utilsSvc.routerLink('loader');
     this.utilsSvc.dismissLoading();
   }
+//agregar o actualizar un productos
+addUpdateProduct(){
+  this.utilsSvc.presentModal({
+    component: AddUpdateProductComponent
+  })
 
+}
 
 }

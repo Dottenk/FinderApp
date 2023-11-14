@@ -13,13 +13,15 @@ import { HeaderComponent } from './header/header.component';
     CustomInputComponent,
     AddUpdateProductComponent,
     HeaderComponent,
-    LogoComponent
+    LogoComponent,
+    AddUpdateProductComponent
   ],
   exports: [
     CustomInputComponent,
     AddUpdateProductComponent,
     LogoComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddUpdateProductComponent
   ],
   imports: [
     CommonModule,
