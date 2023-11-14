@@ -38,7 +38,11 @@ const routes: Routes = [
   {
     path: 'start',
     loadChildren: () => import('./pages/home/start/start.module').then( m => m.StartPageModule)
+  },  {
+    path: 'main',
+    loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule)
   },
+
   
 ];
 

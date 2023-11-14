@@ -19,7 +19,7 @@ export class UtilsService {
 
 
 
-  async takePicture () {
+  async takePicture() {
     return await Camera.getPhoto({
       quality: 100,
       resultType: CameraResultType.DataUrl,
@@ -33,34 +33,39 @@ export class UtilsService {
 
   // Loading
   async presentLoading() {
-    return this.loadingController.create({spinner: 'lines-sharp',message: 'Autenticando...', mode: 'ios',duration: 5000});
-    
+    return this.loadingController.create({ spinner: 'lines-sharp', message: 'Un momento...', mode: 'ios', duration: 5000 });
+
   }
-//cierra el loading
+  //cierra el loading
   async dismissLoading() {
     return await this.loadingController.dismiss();
   }
 
 
   // LocalStorage
+//guardar objeto
+  saveInLocalStorage(key: string, value: any){
+    return localStorage.setItem(key, JSON.stringify(value))
+  }
+  //setear objetos
   setElementInLocalStorage(key: string, value: any) {
     return localStorage.setItem(key, JSON.stringify(value));
   }
-//obtener objetos
-  getElementInLocalStorage(key: string) {
+  //obtener objetos
+  getFromLocalStorage(key: string) {
     return JSON.parse(localStorage.getItem(key));
   }
-//eliminar objeto
+  //eliminar objeto
   removeElementInLocalStorage(key: string) {
     localStorage.removeItem(key);
   }
-//toast
+  //toast
   async presentToast(opts: ToastOptions) {
     const toast = await this.toastController.create(opts);
     toast.present();
   }
 
-  // Router
+  // enrutar a cualquier pagina
   routerLink(url: string) {
     return this.router.navigateByUrl(url);
   }
@@ -76,9 +81,9 @@ export class UtilsService {
     const modal = await this.modalController.create(opts);
     await modal.present();
 
-    const {data} = await modal.onWillDismiss();
+    const { data } = await modal.onWillDismiss();
 
-    if(data){
+    if (data) {
       return data;
     }
   }

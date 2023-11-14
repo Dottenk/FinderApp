@@ -12,11 +12,13 @@ import { User } from 'src/app/models/user.models';
 export class RegisterPage implements OnInit {
 
   form = new FormGroup({
+    uid: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
-    confirmEmail: new FormControl('', [Validators.required, Validators.email]),
+    // confirmEmail: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
+    //  confirmPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)])
+
   });
 
   constructor(
@@ -28,21 +30,25 @@ export class RegisterPage implements OnInit {
 
   }
 
-  async onSubmit(){
-    if(this.form.valid){
-const loading = await this.utilsSvc.presentLoading();
-await loading.present();
+  async onSubmit() {
+    if (this.form.valid) {
+      const loading = await this.utilsSvc.presentLoading();
+      await loading.present();
 
-        this.firebaseSvc.signUp(this.form.value as User).then( async res => {
-       
+      this.firebaseSvc.signUp(this.form.value as User).then(async res => {
+     
 
-       await this.firebaseSvc.updateUser(this.form.value.name);
-       console.log(res);
-             
+        await this.firebaseSvc.updateUser(this.form.value.name);
         
-      }).catch( error => {
+        let uid = res.user.uid;
+        this.form.controls.uid.setValue(uid);
+
+        this.setUserInfo(uid);
+
+
+      }).catch(error => {
         console.log(error);
-       this.utilsSvc.presentToast({
+        this.utilsSvc.presentToast({
           message: error.message,
           duration: 5000,
           color: 'warning',
@@ -50,14 +56,41 @@ await loading.present();
           position: 'middle'
         });
 
-        
+
       }).finally(() => {
         loading.dismiss();
       });
     }
   }
 
+  async setUserInfo(uid: string) {
+    if (this.form.valid) {
+      const loading = await this.utilsSvc.presentLoading();
+      await loading.present();
+
+      let path = `users/${uid}`;
+      delete this.form.value.password;
+
+      this.firebaseSvc.setDocument(path, this.form.value).then(async res => {
+
+        this.utilsSvc.saveInLocalStorage('user', this.form.value)
+       
+
+      }).catch(error => {
+        console.log(error);
+        this.utilsSvc.presentToast({
+          message: error.message,
+          duration: 5000,
+          color: 'primary',
+          icon: 'alert-circle-outline',
+          position: 'middle'
+        });
 
 
+      }).finally(() => {
+        loading.dismiss();
+      });
+    }
+  }
 
 }

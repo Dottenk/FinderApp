@@ -27,7 +27,7 @@ export class AddUpdateProductComponent  implements OnInit {
   ) { }
 
   ngOnInit(){
-    this.user = this.utilsSvc.getElementInLocalStorage('user');
+    this.user = this.utilsSvc.getFromLocalStorage('user');
 
     if(this.product){
       this.formProduct.setValue(this.product);
@@ -125,7 +125,7 @@ export class AddUpdateProductComponent  implements OnInit {
     }
 
     getProduct(){
-      let user : User = this.utilsSvc.getElementInLocalStorage("user");
+      let user : User = this.utilsSvc.getFromLocalStorage("user");
       let path = `users/${user.uid}`;
 
       let sub = this.firebaseSvc.getSubcollection(path, 'productos').subscribe({

@@ -30,13 +30,14 @@ export class LoginPage implements OnInit {
       const loading = await this.utilsSvc.presentLoading();
       await loading.present();
 
-      this.firebaseSvc.login(this.form.value as User).then(async res => {
+      this.firebaseSvc.signIn(this.form.value as User).then(async res => {
 
 
         console.log(res);
 
       }).catch(error => {
         console.log(error);
+        
         this.utilsSvc.presentToast({
           message: error.message,
           duration: 5000,
@@ -51,4 +52,6 @@ export class LoginPage implements OnInit {
       });
     }
   }
+
+ 
 }

@@ -40,11 +40,11 @@ export class StartPage implements OnInit {
   }
 
   getUser(){
-    return this.user = this.utilsSvc.getElementInLocalStorage("user");
+    return this.user = this.utilsSvc.getFromLocalStorage("user");
   }
 
   getProduct(){
-    let user : User = this.utilsSvc.getElementInLocalStorage("user");
+    let user : User = this.utilsSvc.getFromLocalStorage("user");
     let path = `users/${user.uid}`;
 
     let sub = this.firebaseSvc.getSubcollection(path, 'productos').subscribe({
