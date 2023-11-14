@@ -18,13 +18,13 @@ export class UtilsService {
   ) { }
 
 
-
+//captura imagen desde la camara o galeria
   async takePicture() {
     return await Camera.getPhoto({
       quality: 100,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt,
-      promptLabelHeader: 'Selecciona en metodo para subir imagen',
+      promptLabelHeader: 'Selecciona el metodo para subir imagen',
       promptLabelPhoto: 'Elije una foto de tu Galeria',
       promptLabelPicture: 'Toma una foto',
     });
@@ -59,6 +59,8 @@ export class UtilsService {
   removeElementInLocalStorage(key: string) {
     localStorage.removeItem(key);
   }
+
+
   //toast
   async presentToast(opts: ToastOptions) {
     const toast = await this.toastController.create(opts);
@@ -76,7 +78,7 @@ export class UtilsService {
     await alert.present();
   }
 
-  // Modal Present
+  // Modal Present / abre la modal
   async presentModal(opts: ModalOptions) {
     const modal = await this.modalController.create(opts);
     await modal.present();

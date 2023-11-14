@@ -42,7 +42,7 @@ export class AuthGuard{
        if (user) resolve(true);
        }
        else{
-        this.utilsSvc.routerLink('/auth');
+        this.utilsSvc.routerLink('/login');
         resolve(false);
        }
     })

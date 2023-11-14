@@ -9,6 +9,12 @@
       <ion-button fill="clear" id="button-list" disabled="true"><ion-icon name="home-outline" slot="end"></ion-icon>inicio</ion-button>
       <ion-button fill="clear" id="button-list"><ion-icon name="person-circle-outline" slot="end"></ion-icon>Perfil</ion-button>
       <ion-button fill="clear" id="button-list"><ion-icon name="newspaper-outline" slot="end"></ion-icon>Pedidos</ion-button>
+      <!-- boton nuevo producto -->
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="addUpdateProduct()">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </ion-content>
     <div id="footer-menu" class="ion-text-center">
       <ion-button fill="clear" id="btn-logout" (click)="signOut()"><ion-icon name="log-out-outline" slot="end"></ion-icon>Cerrar sesión</ion-button>
