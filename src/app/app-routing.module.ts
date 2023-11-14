@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule), //canActivate: [NoAuthGuard]
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule), canActivate: [NoAuthGuard]
   },
   {
     path: 'register',
@@ -38,9 +38,10 @@ const routes: Routes = [
   {
     path: 'start',
     loadChildren: () => import('./pages/home/start/start.module').then( m => m.StartPageModule)
-  },  {
+  },
+  {
     path: 'main',
-    loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule)
+    loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule), canActivate: [AuthGuard]
   },
 
   

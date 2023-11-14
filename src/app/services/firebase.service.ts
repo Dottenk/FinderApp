@@ -38,7 +38,10 @@ export class FirebaseService {
   sendRecoveryEmail(email: string){
     return sendPasswordResetEmail(getAuth(), email);
   }
-
+//autenticacion
+getAuth(){
+  return getAuth();
+}
 
 
   getAuthState() {
