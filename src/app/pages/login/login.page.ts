@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { User } from 'src/app/models/user.models';
+import { userInfo } from 'os';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,7 @@ export class LoginPage implements OnInit {
 
       }).catch(error => {
         console.log(error);
-        
+
         this.utilsSvc.presentToast({
           message: error.message,
           duration: 5000,
@@ -53,5 +54,43 @@ export class LoginPage implements OnInit {
     }
   }
 
- 
+  async getUserInfo(uid: string) {
+    if (this.form.valid) {
+      const loading = await this.utilsSvc.presentLoading();
+      await loading.present();
+
+      let path = `users/${uid}`;
+     
+
+      this.firebaseSvc.getDocument(path).then((user: User)  => {
+
+        this.utilsSvc.saveInLocalStorage('user', user.name);
+        this.utilsSvc.routerLink('/main/home');
+        this.form.reset();
+
+        this.utilsSvc.presentToast({
+          message: `Te damos la Bienvenida ${user.name}` ,
+          duration: 5000,
+          color: 'primary',
+          icon: 'alert-circle-outline',
+          position: 'middle'
+        });
+       
+
+      }).catch(error => {
+        console.log(error);
+        this.utilsSvc.presentToast({
+          message: error.message,
+          duration: 5000,
+          color: 'primary',
+          icon: 'alert-circle-outline',
+          position: 'middle'
+        });
+
+
+      }).finally(() => {
+        loading.dismiss();
+      });
+    }
+  }
 }
