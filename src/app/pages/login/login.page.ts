@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { User } from 'src/app/models/user.models';
-import { userInfo } from 'os';
+
 
 @Component({
   selector: 'app-login',
@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
       this.firebaseSvc.signIn(this.form.value as User).then(async res => {
 
 
-        console.log(res);
+        this.getUserInfo(res.user.uid);
 
       }).catch(error => {
         console.log(error);
@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
           message: `Te damos la Bienvenida ${user.name}` ,
           duration: 5000,
           color: 'primary',
-          icon: 'alert-circle-outline',
+          icon: 'person-circle-outline',
           position: 'middle'
         });
        

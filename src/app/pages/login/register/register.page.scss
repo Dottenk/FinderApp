@@ -5,7 +5,7 @@
 }
 
 .back-logo{
- // background-image: url("../../..//assets/icon/main/logo.png");
+  //background-image: url("../../..//assets/icon/main/logo.png");
   background-repeat: no-repeat;
   background-size: 300px 100px;
   background-position: 50% 7%;
@@ -100,11 +100,11 @@ ion-item-divider{
 }
 
 @keyframes zoomIn {
-	0% {
-		transform: scale(0.9);
-	}
+    0% {
+        transform: scale(0.9);
+    }
 
-	100% {
-		transform: scale(1);
-	}
+    100% {
+        transform: scale(1);
+    }
 }
