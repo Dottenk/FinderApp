@@ -43,15 +43,11 @@ getAuth(){
   return getAuth();
 }
 
-
-  getAuthState() {
-    return this.auth.authState;
-  }
-
-  async signOut() {
-    await this.auth.signOut();
-    this.utilsSvc.routerLink('/login');
-    this.utilsSvc.removeElementInLocalStorage('user');
+//cerrar sesion
+signOut(){
+  getAuth().signOut();
+  localStorage.removeItem('user')
+}
   }
 
   // Firebase (base de datos)
