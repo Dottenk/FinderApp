@@ -40,13 +40,16 @@ export class HomePage {
   }
 //obtener productos
 getProducts(){
-
   let path = `users/${this.user().uid}/products`;
+
+  this.loading= true;
 
   let sub = this.firebaseSvc.getCollectionData(path).subscribe({
     next: (res: any) => {
       console.log(res);
       this.products = res;
+
+      this.loading = false;
       sub.unsubscribe();
     }
   })

@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<ion-content>
+<ion-content >
 
   <ion-card mode="ios" color="tertiary" class="d-flex-center ion-text-center" *ngIf="!loading && products.length">
     <div>
@@ -23,6 +23,7 @@
         </ion-avatar>
         <ion-label>
           <div class="name"><strong>Categoria: </strong>{{p.category}}</div>
+        
           <div class="data">
             <strong>Descripcion del objeto: </strong>{{p.description}} <br>
             <strong>Lugar donde se encontró: </strong> {{p.site}} <br>

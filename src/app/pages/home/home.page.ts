@@ -16,19 +16,5 @@ export class HomePage {
   )
   {}
 
-  signOut(){
-    this.firebaseSvc.signOut();
-    this.utilsSvc.presentLoading();
-    this.utilsSvc.removeElementInLocalStorage('user');
-    this.utilsSvc.routerLink('loader');
-    this.utilsSvc.dismissLoading();
-  }
-//agregar o actualizar un productos
-addUpdateProduct(){
-  this.utilsSvc.presentModal({
-    component: AddUpdateProductComponent
-  })
-
-}
 
 }
